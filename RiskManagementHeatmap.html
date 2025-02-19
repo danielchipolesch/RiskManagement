@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz de Riscos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            position: relative;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            width: 120px;
+            height: 80px;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid white;
+            position: relative;
+        }
+        .circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 2px;
+            font-size: 12px;
+            color: white;
+        }
+        .cell {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+        }
+        #downloadBtn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+        .impact-label {
+            background-color: #d3d3d3;
+            width: 60px; /* 1/2 da largura das outras colunas */
+            text-align: center;
+            font-size: 12px; /* Reduzindo tamanho da fonte */
+            font-weight: normal; /* Removendo negrito */
+            writing-mode: vertical-rl;
+            transform: rotate(-180deg); /* Rotacionando o texto 90° no sentido anti-horário */
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <button id="downloadBtn">Download PNG</button>
+    <div id="tableContainer">
+        <table>
+            <tbody>
+                <script>
+                    let riskCounter = 1;
+                    const impactLabels = ["Muito Baixo", "Baixo", "Médio", "Alto", "Muito Alto"];
+                    function getColors(impact, probability) {
+                        let riskValue = impact * probability;
+                        if (riskValue <= 2) return { bg: '#90EE90', circle: '#006400' }; // Verde claro / Verde escuro
+                        if (riskValue <= 6) return { bg: 'rgba(255, 255, 153, 0.8)', circle: '#FFD700' }; // Amarelo claro (80%) / Amarelo puro
+                        if (riskValue <= 12) return { bg: '#FFD580', circle: '#FF8C00' }; // Laranja claro / Laranja escuro
+                        return { bg: 'rgba(255, 0, 0, 0.5)', circle: '#FF0000' }; // Vermelho claro (transparente) / Vermelho puro
+                    }
+                    for (let i = 5; i >= 1; i--) { // Impacto (eixo Y)
+                        document.write('<tr>');
+                        document.write(`<td class="impact-label">${impactLabels[5 - i]}</td>`);
+                        for (let j = 1; j <= 5; j++) { // Probabilidade (eixo X)
+                            let colors = getColors(i, j);
+                            document.write(`<td style="background-color: ${colors.bg};"><div class="cell">`);
+                            for (let k = 0; k < Math.floor(Math.random() * 5) + 1; k++) { // Simula múltiplos riscos por célula
+                                document.write(`<div class="circle" style="background-color: ${colors.circle};">R${String(riskCounter).padStart(2, '0')}</div>`);
+                                riskCounter++;
+                            }
+                            document.write('</div></td>');
+                        }
+                        document.write('</tr>');
+                    }
+                </script>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        document.getElementById("downloadBtn").addEventListener("click", function() {
+            html2canvas(document.getElementById("tableContainer")).then(canvas => {
+                let link = document.createElement("a");
+                link.download = "matriz_de_riscos.png";
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+            });
+        });
+    </script>
+</body>
+</html>

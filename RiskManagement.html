@@ -6,7 +6,7 @@
     <title>Matriz de Riscos</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -59,17 +59,20 @@
         }
         .impact-label {
             background-color: #d3d3d3;
-            width: 60px;
+            height: 30px;
+            width: 30px;
             text-align: center;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: normal;
             writing-mode: vertical-rl;
             transform: rotate(-180deg);
         }
         .probability-label {
             background-color: #d3d3d3;
+            height: 30px;
+            width: 30px;
             text-align: center;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: normal;
         }
     </style>
@@ -82,34 +85,34 @@
             <tbody>
                 <script>
                     const risks = [
-                        { codigo: "R01", impacto: 1, probabilidade: 1 }, { codigo: "R02", impacto: 1, probabilidade: 2 },
-                        { codigo: "R03", impacto: 2, probabilidade: 3 }, { codigo: "R04", impacto: 3, probabilidade: 4 },
-                        { codigo: "R05", impacto: 4, probabilidade: 5 }, { codigo: "R06", impacto: 5, probabilidade: 1 },
-                        { codigo: "R07", impacto: 3, probabilidade: 3 }, { codigo: "R08", impacto: 2, probabilidade: 5 },
-                        { codigo: "R09", impacto: 4, probabilidade: 2 }, { codigo: "R10", impacto: 5, probabilidade: 5 },
-                        { codigo: "R11", impacto: 1, probabilidade: 3 }, { codigo: "R12", impacto: 2, probabilidade: 2 },
-                        { codigo: "R13", impacto: 3, probabilidade: 1 }, { codigo: "R14", impacto: 4, probabilidade: 4 },
-                        { codigo: "R15", impacto: 5, probabilidade: 3 }, { codigo: "R16", impacto: 1, probabilidade: 5 },
-                        { codigo: "R17", impacto: 2, probabilidade: 4 }, { codigo: "R18", impacto: 3, probabilidade: 2 },
-                        { codigo: "R19", impacto: 4, probabilidade: 1 }, { codigo: "R20", impacto: 5, probabilidade: 4 },
-                        { codigo: "R21", impacto: 1, probabilidade: 4 }, { codigo: "R22", impacto: 2, probabilidade: 1 },
-                        { codigo: "R23", impacto: 3, probabilidade: 5 }, { codigo: "R24", impacto: 4, probabilidade: 3 },
-                        { codigo: "R25", impacto: 5, probabilidade: 2 }, { codigo: "R26", impacto: 1, probabilidade: 2 },
-                        { codigo: "R27", impacto: 2, probabilidade: 3 }, { codigo: "R28", impacto: 3, probabilidade: 4 },
-                        { codigo: "R29", impacto: 4, probabilidade: 5 }, { codigo: "R30", impacto: 5, probabilidade: 1 },
-                        { codigo: "R31", impacto: 1, probabilidade: 3 }, { codigo: "R32", impacto: 2, probabilidade: 5 },
-                        { codigo: "R33", impacto: 3, probabilidade: 1 }, { codigo: "R34", impacto: 4, probabilidade: 2 },
-                        { codigo: "R35", impacto: 5, probabilidade: 5 }, { codigo: "R36", impacto: 1, probabilidade: 1 },
-                        { codigo: "R37", impacto: 2, probabilidade: 4 }, { codigo: "R38", impacto: 3, probabilidade: 2 },
-                        { codigo: "R39", impacto: 4, probabilidade: 3 }, { codigo: "R40", impacto: 5, probabilidade: 4 },
-                        { codigo: "R41", impacto: 1, probabilidade: 4 }, { codigo: "R42", impacto: 2, probabilidade: 2 },
-                        { codigo: "R43", impacto: 3, probabilidade: 5 }, { codigo: "R44", impacto: 4, probabilidade: 1 },
-                        { codigo: "R45", impacto: 5, probabilidade: 2 }, { codigo: "R46", impacto: 1, probabilidade: 2 },
-                        { codigo: "R47", impacto: 2, probabilidade: 3 }, { codigo: "R48", impacto: 3, probabilidade: 4 },
-                        { codigo: "R49", impacto: 4, probabilidade: 5 }, { codigo: "R50", impacto: 5, probabilidade: 1 }
+                        { codigo: "R-01", impacto: 1, probabilidade: 1 }, { codigo: "R-02", impacto: 1, probabilidade: 2 },
+                        { codigo: "R-03", impacto: 2, probabilidade: 3 }, { codigo: "R-04", impacto: 3, probabilidade: 4 },
+                        { codigo: "R-05", impacto: 4, probabilidade: 5 }, { codigo: "R-06", impacto: 5, probabilidade: 1 },
+                        { codigo: "R-07", impacto: 3, probabilidade: 3 }, { codigo: "R-08", impacto: 2, probabilidade: 5 },
+                        { codigo: "R-09", impacto: 4, probabilidade: 2 }, { codigo: "R-10", impacto: 5, probabilidade: 5 },
+                        { codigo: "R-11", impacto: 1, probabilidade: 3 }, { codigo: "R-12", impacto: 2, probabilidade: 2 },
+                        { codigo: "R-13", impacto: 3, probabilidade: 1 }, { codigo: "R-14", impacto: 4, probabilidade: 4 },
+                        { codigo: "R-15", impacto: 5, probabilidade: 3 }, { codigo: "R-16", impacto: 1, probabilidade: 5 },
+                        { codigo: "R-17", impacto: 2, probabilidade: 4 }, { codigo: "R-18", impacto: 3, probabilidade: 2 },
+                        { codigo: "R-19", impacto: 4, probabilidade: 1 }, { codigo: "R-20", impacto: 5, probabilidade: 4 },
+                        { codigo: "R-21", impacto: 1, probabilidade: 4 }, { codigo: "R-22", impacto: 2, probabilidade: 1 },
+                        { codigo: "R-23", impacto: 3, probabilidade: 5 }, { codigo: "R-24", impacto: 4, probabilidade: 3 },
+                        { codigo: "R-25", impacto: 5, probabilidade: 2 }, { codigo: "R-26", impacto: 1, probabilidade: 2 },
+                        { codigo: "R-27", impacto: 2, probabilidade: 3 }, { codigo: "R-28", impacto: 3, probabilidade: 4 },
+                        { codigo: "R-29", impacto: 4, probabilidade: 5 }, { codigo: "R-30", impacto: 5, probabilidade: 1 },
+                        { codigo: "R-31", impacto: 1, probabilidade: 3 }, { codigo: "R-32", impacto: 2, probabilidade: 5 },
+                        { codigo: "R-33", impacto: 3, probabilidade: 1 }, { codigo: "R-34", impacto: 4, probabilidade: 2 },
+                        { codigo: "R-35", impacto: 5, probabilidade: 5 }, { codigo: "R-36", impacto: 1, probabilidade: 1 },
+                        { codigo: "R-37", impacto: 2, probabilidade: 4 }, { codigo: "R-38", impacto: 3, probabilidade: 2 },
+                        { codigo: "R-39", impacto: 4, probabilidade: 3 }, { codigo: "R-40", impacto: 5, probabilidade: 4 },
+                        { codigo: "R-41", impacto: 1, probabilidade: 4 }, { codigo: "R-42", impacto: 2, probabilidade: 2 },
+                        { codigo: "R-43", impacto: 3, probabilidade: 5 }, { codigo: "R-44", impacto: 4, probabilidade: 1 },
+                        { codigo: "R-45", impacto: 5, probabilidade: 2 }, { codigo: "R-46", impacto: 1, probabilidade: 2 },
+                        { codigo: "R-47", impacto: 2, probabilidade: 3 }, { codigo: "R-48", impacto: 3, probabilidade: 4 },
+                        { codigo: "R-49", impacto: 4, probabilidade: 5 }, { codigo: "R-50", impacto: 5, probabilidade: 1 }
                     ];
                     
-                    const impactLabels = ["Muito Baixo", "Baixo", "Médio", "Alto", "Muito Alto"];
+                    const impactLabels = ["Insignificante", "Baixo", "Médio", "Alto", "Catastrófico"];
                     const probabilityLabels = ["Muito Baixo", "Baixo", "Médio", "Alto", "Muito Alto"];
                     
                     function getColors(impact, probability) {
@@ -122,8 +125,8 @@
                     
                     for (let i = 5; i >= 1; i--) {
                         document.write('<tr>');
-                        document.write(`<td class="impact-label">${impactLabels[5 - i]}</td>`);
-                        for (let j = 1; j <= 5; j++) {
+                        document.write(`<td class="impact-label">${impactLabels[i-1]}<br>(${i})</td>`);
+                        for (let j = 1; j <= 5; j++) {                            
                             let colors = getColors(i, j);
                             document.write(`<td style="background-color: ${colors.bg};"><div class="cell">`);
                             
@@ -139,7 +142,7 @@
                     document.write('<tr>');
                     document.write('<td class="probability-label"></td>');
                     for (let j = 1; j <= 5; j++) {
-                        document.write(`<td class="probability-label">${probabilityLabels[j - 1]}</td>`);
+                        document.write(`<td class="probability-label">${probabilityLabels[j - 1]}<br>(${j})</td>`);
                     }
                     document.write('</tr>');
                 </script>

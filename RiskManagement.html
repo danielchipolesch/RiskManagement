@@ -16,6 +16,10 @@
         }
         table {
             border-collapse: collapse;
+            margin: 5px;
+        }
+        .table-container{
+            background-color: white;
         }
         td {
             width: 120px;
@@ -108,8 +112,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
-    <button id="downloadBtn">Download PNG</button>
-    <div id="tableContainer">
+    <button id="downloadBtn">Download PNG</button>    
+    <div id="tableContainer" class="table-container">
         <table>
             <tbody>
                 <script>
@@ -163,9 +167,9 @@
                             let colors = getColors(i, j);                            
                             document.write(`<td style="background-color: ${colors.bg};"><div class="cell">`);                            
                             risks.filter(risk => risk.impacto === i && risk.probabilidade === j)
-                                 .forEach(risk => {
-                                     document.write(`<div class="circle" style="background-color: ${colors.circle};">${risk.codigo}</div>`);
-                                 });                            
+                                .forEach(risk => {
+                                    document.write(`<div class="circle" style="background-color: ${colors.circle};">${risk.codigo}</div>`);
+                                });                            
                             document.write('</div></td>');
                         }                        
                         document.write('</tr>');
@@ -179,7 +183,7 @@
                 </script>
             </tbody>
         </table>
-    </div>
+    </div>    
     <script>
         document.getElementById("downloadBtn").addEventListener("click", function() {
             html2canvas(document.getElementById("tableContainer"), { scale: 2 }).then(canvas => {

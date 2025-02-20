@@ -59,12 +59,18 @@
         }
         .impact-label {
             background-color: #d3d3d3;
-            width: 60px; /* 1/2 da largura das outras colunas */
+            width: 60px;
             text-align: center;
-            font-size: 12px; /* Reduzindo tamanho da fonte */
-            font-weight: normal; /* Removendo negrito */
+            font-size: 12px;
+            font-weight: normal;
             writing-mode: vertical-rl;
-            transform: rotate(-180deg); /* Rotacionando o texto 90° no sentido anti-horário */
+            transform: rotate(-180deg);
+        }
+        .probability-label {
+            background-color: #d3d3d3;
+            text-align: center;
+            font-size: 12px;
+            font-weight: normal;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -75,36 +81,74 @@
         <table>
             <tbody>
                 <script>
-                    let riskCounter = 1;
+                    const risks = [
+                        { codigo: "R01", impacto: 1, probabilidade: 1 }, { codigo: "R02", impacto: 1, probabilidade: 2 },
+                        { codigo: "R03", impacto: 2, probabilidade: 3 }, { codigo: "R04", impacto: 3, probabilidade: 4 },
+                        { codigo: "R05", impacto: 4, probabilidade: 5 }, { codigo: "R06", impacto: 5, probabilidade: 1 },
+                        { codigo: "R07", impacto: 3, probabilidade: 3 }, { codigo: "R08", impacto: 2, probabilidade: 5 },
+                        { codigo: "R09", impacto: 4, probabilidade: 2 }, { codigo: "R10", impacto: 5, probabilidade: 5 },
+                        { codigo: "R11", impacto: 1, probabilidade: 3 }, { codigo: "R12", impacto: 2, probabilidade: 2 },
+                        { codigo: "R13", impacto: 3, probabilidade: 1 }, { codigo: "R14", impacto: 4, probabilidade: 4 },
+                        { codigo: "R15", impacto: 5, probabilidade: 3 }, { codigo: "R16", impacto: 1, probabilidade: 5 },
+                        { codigo: "R17", impacto: 2, probabilidade: 4 }, { codigo: "R18", impacto: 3, probabilidade: 2 },
+                        { codigo: "R19", impacto: 4, probabilidade: 1 }, { codigo: "R20", impacto: 5, probabilidade: 4 },
+                        { codigo: "R21", impacto: 1, probabilidade: 4 }, { codigo: "R22", impacto: 2, probabilidade: 1 },
+                        { codigo: "R23", impacto: 3, probabilidade: 5 }, { codigo: "R24", impacto: 4, probabilidade: 3 },
+                        { codigo: "R25", impacto: 5, probabilidade: 2 }, { codigo: "R26", impacto: 1, probabilidade: 2 },
+                        { codigo: "R27", impacto: 2, probabilidade: 3 }, { codigo: "R28", impacto: 3, probabilidade: 4 },
+                        { codigo: "R29", impacto: 4, probabilidade: 5 }, { codigo: "R30", impacto: 5, probabilidade: 1 },
+                        { codigo: "R31", impacto: 1, probabilidade: 3 }, { codigo: "R32", impacto: 2, probabilidade: 5 },
+                        { codigo: "R33", impacto: 3, probabilidade: 1 }, { codigo: "R34", impacto: 4, probabilidade: 2 },
+                        { codigo: "R35", impacto: 5, probabilidade: 5 }, { codigo: "R36", impacto: 1, probabilidade: 1 },
+                        { codigo: "R37", impacto: 2, probabilidade: 4 }, { codigo: "R38", impacto: 3, probabilidade: 2 },
+                        { codigo: "R39", impacto: 4, probabilidade: 3 }, { codigo: "R40", impacto: 5, probabilidade: 4 },
+                        { codigo: "R41", impacto: 1, probabilidade: 4 }, { codigo: "R42", impacto: 2, probabilidade: 2 },
+                        { codigo: "R43", impacto: 3, probabilidade: 5 }, { codigo: "R44", impacto: 4, probabilidade: 1 },
+                        { codigo: "R45", impacto: 5, probabilidade: 2 }, { codigo: "R46", impacto: 1, probabilidade: 2 },
+                        { codigo: "R47", impacto: 2, probabilidade: 3 }, { codigo: "R48", impacto: 3, probabilidade: 4 },
+                        { codigo: "R49", impacto: 4, probabilidade: 5 }, { codigo: "R50", impacto: 5, probabilidade: 1 }
+                    ];
+                    
                     const impactLabels = ["Muito Baixo", "Baixo", "Médio", "Alto", "Muito Alto"];
+                    const probabilityLabels = ["Muito Baixo", "Baixo", "Médio", "Alto", "Muito Alto"];
+                    
                     function getColors(impact, probability) {
                         let riskValue = impact * probability;
-                        if (riskValue <= 2) return { bg: '#90EE90', circle: '#006400' }; // Verde claro / Verde escuro
-                        if (riskValue <= 6) return { bg: 'rgba(255, 255, 153, 0.8)', circle: '#FFD700' }; // Amarelo claro (80%) / Amarelo puro
-                        if (riskValue <= 12) return { bg: '#FFD580', circle: '#FF8C00' }; // Laranja claro / Laranja escuro
-                        return { bg: 'rgba(255, 0, 0, 0.5)', circle: '#FF0000' }; // Vermelho claro (transparente) / Vermelho puro
+                        if (riskValue <= 2) return { bg: '#90EE90', circle: '#006400' };
+                        if (riskValue <= 6) return { bg: 'rgba(255, 255, 153, 0.8)', circle: '#FFD700' };
+                        if (riskValue <= 12) return { bg: '#FFD580', circle: '#FF8C00' };
+                        return { bg: 'rgba(255, 0, 0, 0.5)', circle: '#FF0000' };
                     }
-                    for (let i = 5; i >= 1; i--) { // Impacto (eixo Y)
+                    
+                    for (let i = 5; i >= 1; i--) {
                         document.write('<tr>');
                         document.write(`<td class="impact-label">${impactLabels[5 - i]}</td>`);
-                        for (let j = 1; j <= 5; j++) { // Probabilidade (eixo X)
+                        for (let j = 1; j <= 5; j++) {
                             let colors = getColors(i, j);
                             document.write(`<td style="background-color: ${colors.bg};"><div class="cell">`);
-                            for (let k = 0; k < Math.floor(Math.random() * 5) + 1; k++) { // Simula múltiplos riscos por célula
-                                document.write(`<div class="circle" style="background-color: ${colors.circle};">R${String(riskCounter).padStart(2, '0')}</div>`);
-                                riskCounter++;
-                            }
+                            
+                            risks.filter(risk => risk.impacto === i && risk.probabilidade === j)
+                                 .forEach(risk => {
+                                     document.write(`<div class="circle" style="background-color: ${colors.circle};">${risk.codigo}</div>`);
+                                 });
+                            
                             document.write('</div></td>');
                         }
                         document.write('</tr>');
                     }
+                    document.write('<tr>');
+                    document.write('<td class="probability-label"></td>');
+                    for (let j = 1; j <= 5; j++) {
+                        document.write(`<td class="probability-label">${probabilityLabels[j - 1]}</td>`);
+                    }
+                    document.write('</tr>');
                 </script>
             </tbody>
         </table>
     </div>
     <script>
         document.getElementById("downloadBtn").addEventListener("click", function() {
-            html2canvas(document.getElementById("tableContainer")).then(canvas => {
+            html2canvas(document.getElementById("tableContainer"), { scale: 2 }).then(canvas => {
                 let link = document.createElement("a");
                 link.download = "matriz_de_riscos.png";
                 link.href = canvas.toDataURL("image/png");
